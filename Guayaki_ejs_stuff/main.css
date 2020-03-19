@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Coda+Caption:800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+
+.navbar a{
+	font-family:'Alfa Slab One', cursive;
+}
+
+.navbar-brand {
+	color: white !important;
+	font-family:'Coda Caption', sans-serif !important;
+}
+
+.btn {
+	font-family:'Arial' !important;
+}
+
+
+.jumbotron {
+	background-color:crimson;
+}
+
+.jumbotron h1{
+	font-family:'Alfa Slab One', cursive !important;
+	font-size: 48px;
+	color:white;
+}
+
+.jumbotron p{
+	color:white;
+}
+
+body {
+	background-color:white;
+}
+
+th {
+	color: white;
+	font-size: 24pt;
+	font-family: 'Bebas Neue', cursive;
+	text-align: center;
+}
+td {
+	text-align: center;
+	font-family:'Alfa Slab One', cursive;
+}
