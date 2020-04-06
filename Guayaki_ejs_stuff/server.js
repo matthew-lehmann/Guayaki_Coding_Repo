@@ -10,6 +10,9 @@ var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+function isEmptyObject(obj) {
+  return !Object.keys(obj).length;
+}
 
 var pgp = require('pg-promise')();
 app.locals.token = false;
@@ -25,6 +28,8 @@ const dbConfig = {
 };
 
 var db = pgp(dbConfig);
+var uname = '';
+var password = '';
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -80,10 +85,11 @@ app.get('/login', function(req, res){
 
 // use the get to pull user information if token = true. If token is 
 // false then no information can be pulled so just make if statement?
-app.get('/mypage/user', function(req, res){
-	var uname = req.body.user_name;
-	var password = req.body.user_password;
+app.post('/mypage/userLogin', function(req, res){
+	uname = req.body.user_name;
+	password = req.body.user_password;
 	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
+	app.locals.token = true;
 
 	db.task('get-everything', task=>{
 		return task.batch([
@@ -92,7 +98,7 @@ app.get('/mypage/user', function(req, res){
 
 	})
 		.then(function(data){
-			if (data[0] == NULL){
+			if (isEmptyObject(data[0])){
 				res.render('duplicate', {
 					title: 'Failed Login',
 					users: ''
@@ -108,12 +114,12 @@ app.get('/mypage/user', function(req, res){
 });
 
 // a post request for the user page should only be sent on login or signup
-app.post('/mypage/user', function(req, res){
-	var user_name = req.body.create_user_name;
-	var user_password = req.body.create_password;
+app.post('/mypage/userSignup', function(req, res){
+	uname = req.body.create_user_name;
+	password = req.body.create_password;
 	app.locals.token = true;
 
-	var insert_statement1 = "insert into users(user_name, user_password) values('" + user_name + "','" + user_password + "');";
+	var insert_statement1 = "insert into users(user_name, user_password) values('" + uname + "','" + password + "');";
 
 	db.task('get-everything', task =>{
 		return task.batch([
