@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+    <html>
+    <!-- ********************************************************************
+      1. Setup the Guayaki social page where score table is visible
+      2. Display the page in the ejs format
+      3. Make sure the table updates when users are added
+      4. Figure out how to include this page and all the modules via internet
+      *********************************************************************-->
+      <head>
+        <title>Guayaki Game</title>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      </head>
+      <body>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse_target">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="collapse_target">
+            <ul class="navbar-nav ml-1">
+                <a class="navbar-brand" href="/Guayaki_soc">
+                  <img src="g.png" class="rounded-circle mr-2" width="30" height="30">
+                  Guayaki
+                </a>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/Guayaki_soc">Home</a>
+                </li>
+                <% if (token == false){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">My Profile</a>
+                  </li>
+                <%}%>
+                <% if (token == true) { %>
+                  <form action="/mypage/user" method="get">
+                    <li class="nav-item">
+                      <button type="submit" class="btn btn-default">My Profile</button>
+                    </li>
+                  </form>
+                <%}%>
+            </ul>
+            <% if (token == false) {%>
+              <ul class="navbar-nav ml-auto">
+                  <form class="form-inline">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                          <input class="form-control mr-2" type="text" placeholder="Username" name="user_name" id="user_name">
+                    </div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                      </div>
+                        <input class="form-control mr-2" type="password" placeholder="Password" name="user_password" id="user_password">
+                    </div>
+                    <a class="btn btn-danger mr-1" href="/Guayaki_soc">Login</a>
+                  </form>
+              </ul>
+            <%}%>
+          </div>
+        </nav>
+        <div class="jumbotron">
+          <h1 class="display-5">Welcome to Guayaki!</h1>
+          <p class="lead">A new community-driven PC game designed to provide gamers with a fun, challenging, and competitive environment. <br>Brought to you by: Matthew Lehmann, Sam Ehrlich, Paco Ramirez, Jordane Coombs, and Tri Bui</p>
+        </div>
+        <div class="container">
+          <table class="table table-bordered table-dark" id="user scores">
+            <tr>
+              <th>Username</th>
+              <th>Best Time</th>
+            </tr>
+            <%
+              if(data) {
+                var user_name = [];
+                var user_bestTime = [];
+                var i = 0;
+                  data.forEach(function(user){
+                  user_name[i] = user.user_name;
+                  user_bestTime[i] = user.best_time;
+                  i++;
+                }); %>
+           <% } %>
+            <%
+            for (var row = 0; row < i; row++){ %>
+              <tr> 
+                <td> <%-user_name[row]%> </td>
+                <td> <%-user_bestTime[row]%> </td>
+              </tr>
+          <%}%>
+          </table>
+        </div>
+      </body>
+    </html>

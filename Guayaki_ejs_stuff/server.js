@@ -12,13 +12,16 @@ app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var pgp = require('pg-promise')();
+app.locals.token = false;
+
+var userIn = 0;
 
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
 	database: 'guayaki',
 	user: 'postgres',
-	password: '1234'
+	password: '1234' //csci3308 for RDS
 };
 
 var db = pgp(dbConfig);
@@ -28,8 +31,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));//This line is necessary for us to use relative paths and access our resources directory
 
 app.get('/Guayaki_soc', function(req, res) {
-	var query = 'select * from user_scores;';
-	var query2 = 'select count(*) as ct from user_scores;';
+	var query = 'select * from users;';
+	var query2 = 'select count(*) as ct from users;';
 	db.task('get-everything', task => {
 		return task.batch([
 			task.any(query),
@@ -45,7 +48,7 @@ app.get('/Guayaki_soc', function(req, res) {
 		})
 		.catch(function(err){
 			console.log('error', err);
-			response.render('Guayaki_soc', {
+			res.render('Guayaki_soc', {
 				title: 'Guayaki Home Page',
 				data: ''
 			})
@@ -54,36 +57,79 @@ app.get('/Guayaki_soc', function(req, res) {
 });
 
 app.get('/login', function(req, res){
-	res.render('login', {
-		title: 'Login Page'
+	var query = 'select * from users;';
+	db.task('get-everything', task => {
+		return task.batch([
+			task.any(query)
+		]);
 	})
+		.then(function(data){
+			res.render('login', {
+				title: 'Login Page',
+				users: data[0]
+			})
+		})
+		.catch(function(err){
+			console.log('error', err);
+			res.render('login', {
+				title: 'Login Page',
+				users: ''
+			})
+		})
 });
 
-app.get('/mypage', function(req, res){
-	res.render('mypage', {
-		title: 'My Page'
+// use the get to pull user information if token = true. If token is 
+// false then no information can be pulled so just make if statement?
+app.get('/mypage/user', function(req, res){
+	var uname = req.body.user_name;
+	var password = req.body.user_password;
+	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
+
+	db.task('get-everything', task=>{
+		return task.batch([
+			task.any(query)
+		]);
+
 	})
+		.then(function(data){
+			if (data[0] == NULL){
+				res.render('duplicate', {
+					title: 'Failed Login',
+					users: ''
+				})
+			}
+			else{
+				res.render('mypage', {
+					title: 'My Page',
+					users: data[0]
+				})
+			}
+		})
 });
 
-app.post('/mypage', function(req, res){
-	var user_name = req.body.user_name;
-	var user_password = req.body.user_password;
+// a post request for the user page should only be sent on login or signup
+app.post('/mypage/user', function(req, res){
+	var user_name = req.body.create_user_name;
+	var user_password = req.body.create_password;
+	app.locals.token = true;
 
 	var insert_statement1 = "insert into users(user_name, user_password) values('" + user_name + "','" + user_password + "');";
+
 	db.task('get-everything', task =>{
 		return task.batch([
-			task.any(insert_statement1)
+			task.any(insert_statement1)//,
+			//task.any(insert_statement2)
 		]);
 	})
 	.then(info =>{
 		res.render('mypage', {
-			my_title: "My page",
+			my_title: "My User Page",
 		})
 	})
 	.catch(err =>{
 		console.log('error', err);
-		response.render('pages/home', {
-		    title: 'My Page',
+		res.render('duplicate', {
+		    title: 'Duplicate Account',
 		})
 	});
 });

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+    <html>
+      <head>
+        <title>Please Login</title>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="main.css">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Question 1</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        <!-- Custom Scripts -->
+        <script>
+            function onModalOpen(){
+                var checkUser = document.getElementById("create_user_name");
+                var checkPass = document.getElementById("create_password");
+                var confirmPass = document.getElementById("confirm_password");
+
+                confirmPass.onkeyup = function(){
+                    if ((checkUser.value != '') && (checkPass.value != '') && (confirmPass.value !='')){
+                        enableSignUp(checkPass, confirmPass);
+                    }
+                }
+            }
+            function enableSignUp(checkPass, confirmPass){
+                var signUpButton = document.getElementById("sign_up_button");
+                if (checkPass.value == confirmPass.value){
+                    signUpButton.disabled = false;
+                }
+            }
+            function validate(){
+                var username = document.getElementById('user_name');
+                var password = document.getElementById('user_password');
+            }
+        </script>
+
+        </head>
+    	<body>
+    		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse_target">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="collapse_target">
+                <ul class="navbar-nav ml-1">
+                    <a class="navbar-brand" href="/Guayaki_soc">
+                      <img src="g.png" class="rounded-circle mr-2" width="30" height="30">
+                      Guayaki
+                    </a>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Guayaki_soc">Home</a>
+                    </li>
+                    <% if (token == false){ %>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/login">My Profile</a>
+                      </li>
+                    <%}%>
+                    <% if (token == true) { %>
+                      <form action="/mypage/user" method="get">
+                        <li class="nav-item">
+                          <button type="submit" class="btn btn-default">My Profile</button>
+                        </li>
+                      </form>
+                    <%}%>
+                </ul>
+              </div>
+            </nav>
+            <div class="container">
+                <div class="d-flex justify-content-center h-100">
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h1>Login</h1>
+                        </div>
+                        <div class="card-body">
+                            <form action="/mypage/user" method="get">
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Username" name="user_name" id="user_name">
+                                </div>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Password" name="user_password" id="user_password">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center links">Don't have an account?
+                                <a href="#CreateAccount" data-toggle="modal" onclick="onModalOpen()">&nbsp;Sign Up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="CreateAccount" class="modal fade">
+                <div class="modal-dialog modal-login">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Sign Up page</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/mypage/user" method="post"> 
+                                <div class="input-group form-group">
+                                    <input type="text" class="form-control" name="create_user_name" placeholder="Username"
+                                        required="required" id="create_user_name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="create_password" placeholder="Password"
+                                        required="required" id="create_password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="confirm_password"
+                                        placeholder="Confirm Password" required="required" id="confirm_password">
+                                </div>
+                                <button id="sign_up_button" type="submit" class="btn btn-primary btn-block login-btn" disabled>Sign Up</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    		
+    	</body>
+    </html>
