@@ -19,6 +19,15 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
       </head>
       <body>
+       <%
+            if(user_info) {
+              var user_name = [];
+              var user_bestTime = [];
+                user_info.forEach(function(user){
+                user_name = user.user_name;
+                user_bestTime = user.best_time;
+              }); %>
+         <% } %>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse_target">
             <span class="navbar-toggler-icon"></span>
@@ -67,7 +76,13 @@
           </div>
         </nav>
         <div class="jumbotron">
-           <h1 class="display-5">Welcome to Your Home!</h1>
-           <p class="lead">This is where you can view a record of your fastest runs on the course!</p>
+           <h1 class="display-5">Welcome to Your Home <%- user_name%>!</h1>
+           <p class="lead">This is where you can see your profile and view a record of your fastest runs on the course!</p>
+        </div>
+        <div class="container">
+          <div class="jumbotron" style="background-image: url(https://images.pexels.com/photos/274131/pexels-photo-274131.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500); min-height:300px">
+            <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/"/>
+            <h2><%- user_name%></h2>
+          </div>
         </div>
       </body>

@@ -83,6 +83,21 @@ app.get('/login', function(req, res){
 		})
 });
 
+app.get('/mypage/user', function(req,res){
+	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
+	db.task('get-everything', task=>{
+		return task.batch([
+			task.any(query)
+		]);
+	})
+		.then(function(data) {
+			res.render('mypage', {
+				title: 'My Page',
+				user_info: data[0]
+			})
+		})
+})
+
 // use the get to pull user information if token = true. If token is 
 // false then no information can be pulled so just make if statement?
 app.post('/mypage/userLogin', function(req, res){
@@ -95,7 +110,6 @@ app.post('/mypage/userLogin', function(req, res){
 		return task.batch([
 			task.any(query)
 		]);
-
 	})
 		.then(function(data){
 			if (isEmptyObject(data[0])){
@@ -107,7 +121,7 @@ app.post('/mypage/userLogin', function(req, res){
 			else{
 				res.render('mypage', {
 					title: 'My Page',
-					users: data[0]
+					user_info: data[0]
 				})
 			}
 		})
@@ -120,16 +134,18 @@ app.post('/mypage/userSignup', function(req, res){
 	app.locals.token = true;
 
 	var insert_statement1 = "insert into users(user_name, user_password) values('" + uname + "','" + password + "');";
+	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
 
 	db.task('get-everything', task =>{
 		return task.batch([
-			task.any(insert_statement1)//,
-			//task.any(insert_statement2)
+			task.any(insert_statement1),
+			task.any(query)
 		]);
 	})
 	.then(info =>{
 		res.render('mypage', {
 			my_title: "My User Page",
+			user_info: data[1]
 		})
 	})
 	.catch(err =>{

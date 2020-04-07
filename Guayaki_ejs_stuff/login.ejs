@@ -89,7 +89,7 @@
                             <h1>Login</h1>
                         </div>
                         <div class="card-body">
-                            <form action="/mypage/user" method="get">
+                            <form action="/mypage/userLogin" method="post">
                                 <div class="input-group form-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -121,7 +121,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <form action="/mypage/user" method="post"> 
+                            <form action="/mypage/userSignup" method="post"> 
                                 <div class="input-group form-group">
                                     <input type="text" class="form-control" name="create_user_name" placeholder="Username"
                                         required="required" id="create_user_name">
