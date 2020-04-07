@@ -38,17 +38,20 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 app.get('/Guayaki_soc', function(req, res) {
 	var query = 'select * from users;';
 	var query2 = 'select count(*) as ct from users;';
+	var query3 = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
 	db.task('get-everything', task => {
 		return task.batch([
 			task.any(query),
-			task.any(query2)
+			task.any(query2),
+			task.any(query3)
 		]);
 	})
 		.then(function (rows){
 			res.render('Guayaki_soc', {
 				my_title: "Guayaki Home Page",
 				data: rows[0],
-				data2: rows[1]
+				data2: rows[1],
+				user_info: rows[2]
 			})
 		})
 		.catch(function(err){
@@ -131,9 +134,10 @@ app.post('/mypage/userLogin', function(req, res){
 app.post('/mypage/userSignup', function(req, res){
 	uname = req.body.create_user_name;
 	password = req.body.create_password;
+	pic = req.body.profile_picture;
 	app.locals.token = true;
 
-	var insert_statement1 = "insert into users(user_name, user_password) values('" + uname + "','" + password + "');";
+	var insert_statement1 = "insert into users(user_name, user_password, profile_picture) values('" + uname + "','" + password + "','" + pic + "');";
 	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
 
 	db.task('get-everything', task =>{
@@ -142,7 +146,7 @@ app.post('/mypage/userSignup', function(req, res){
 			task.any(query)
 		]);
 	})
-	.then(info =>{
+	.then(function(data){
 		res.render('mypage', {
 			my_title: "My User Page",
 			user_info: data[1]
