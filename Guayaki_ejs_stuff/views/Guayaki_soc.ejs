@@ -71,30 +71,44 @@
             <%}%>
           </div>
         </nav>
+        <%
+          if (token == true){
+             user_info.forEach(function(user2){
+             user_name2 = user2.user_name;
+           })
+          }
+          else
+          {
+            user_name2 = '';
+          }%>
         <div class="jumbotron">
-          <h1 class="display-5">Welcome to Guayaki!</h1>
+          <h1 class="display-5">Welcome to Guayaki <%-user_name2%>!</h1>
           <p class="lead">A new community-driven PC game designed to provide gamers with a fun, challenging, and competitive environment. <br>Brought to you by: Matthew Lehmann, Sam Ehrlich, Paco Ramirez, Jordane Coombs, and Tri Bui</p>
         </div>
         <div class="container">
           <table class="table table-bordered table-dark" id="user scores">
             <tr>
+              <th>Guayaki The Game</th>
               <th>Username</th>
               <th>Best Time</th>
-            </tr>
+            </tr>      
             <%
               if(data) {
                 var user_name = [];
                 var user_bestTime = [];
+                var pf_pic = [];
                 var i = 0;
                   data.forEach(function(user){
                   user_name[i] = user.user_name;
                   user_bestTime[i] = user.best_time;
+                  pf_pic[i] = user.profile_picture;
                   i++;
                 }); %>
            <% } %>
             <%
             for (var row = 0; row < i; row++){ %>
               <tr> 
+                <td><img style="max-height: 35px; "src="<%-pf_pic[row]%>"> </td>
                 <td> <%-user_name[row]%> </td>
                 <td> <%-user_bestTime[row]%> </td>
               </tr>
