@@ -23,9 +23,13 @@
             if(user_info) {
               var user_name = [];
               var user_bestTime = [];
+              var pf_pic = [];
+              var bio = [];
                 user_info.forEach(function(user){
                 user_name = user.user_name;
                 user_bestTime = user.best_time;
+                pf_pic = user.profile_picture;
+                user_bio = user.bio;
               }); %>
          <% } %>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -81,8 +85,19 @@
         </div>
         <div class="container">
           <div class="jumbotron" style="background-image: url(https://images.pexels.com/photos/274131/pexels-photo-274131.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500); min-height:300px">
-            <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/"/>
+            <img align="left" class="fb-image-profile thumbnail" src="<%- pf_pic%>">/>
             <h2><%- user_name%></h2>
+            <p style="margin-left:200px; margin-top:50px; font-family:'Alfa Slab One', cursive; color:white"><%- user_bio%></p>
           </div>
+          <table class="table table-bordered table-dark" id="userProfile">
+            <tr>
+              <th>Username</th>
+              <th>Best Time</th>
+            </tr>   
+            <tr>
+              <th><%-user_name%></th>
+              <th><%-user_bestTime%></th>
+            </tr>
+          </table>   
         </div>
       </body>
