@@ -135,9 +135,10 @@ app.post('/mypage/userSignup', function(req, res){
 	uname = req.body.create_user_name;
 	password = req.body.create_password;
 	pic = req.body.profile_picture;
+	bio = req.body.bio;
 	app.locals.token = true;
 
-	var insert_statement1 = "insert into users(user_name, user_password, profile_picture) values('" + uname + "','" + password + "','" + pic + "');";
+	var insert_statement1 = "insert into users(user_name, user_password, profile_picture, bio) values('" + uname + "','" + password + "','" + pic + "','" + bio + "');";
 	var query = "select * from users where user_name = '" + uname + "'" + "and user_password = '" + password + "';"
 
 	db.task('get-everything', task =>{
