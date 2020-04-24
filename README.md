@@ -12,7 +12,7 @@ Organization
   - mypage.ejs (handles the myprofile page when a user is logged in)
   - server.ejs (handles the intergration layer of the website and the postgreSQL database)
   
-Build/run website
+Build/run WEBSITE
   - Just visit the website https://guayaki.herokuapp.com/ to see the website. You can login to theking1's account to     
   what the profile page looks like ---> Username: theking1  Password: 1234
   - If you want to create your own account make sure to follow the following instructions for inputting your profile        
@@ -24,7 +24,7 @@ Build/run website
   a relatively short link.
   - Like this one: https://i.imgur.com/idLV3vLg.jpg
 
-Build/run game: go to https://drive.google.com/drive/folders/1xxX07yJlOOrRup7rrne2LvxEtJu7MmMx?usp=sharing
+Build/run GAME: go to https://drive.google.com/drive/folders/1xxX07yJlOOrRup7rrne2LvxEtJu7MmMx?usp=sharing
   - For Windows: Zip and download the "SpaceRace_Windows" folder.
     - Download the entire folder as a zip file. Extract the "SpaceRace_Windows" folder from the zip file.
     - Once extracted, open the "SpaceRace_Windows" folder, then open "Guayaki - SoftwareDev.exe" 
