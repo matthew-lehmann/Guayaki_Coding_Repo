@@ -25,14 +25,20 @@ Build/run WEBSITE
   - Like this one: https://i.imgur.com/idLV3vLg.jpg
 
 Build/run GAME: go to https://drive.google.com/drive/folders/1xxX07yJlOOrRup7rrne2LvxEtJu7MmMx?usp=sharing
-  - For Windows: Zip and download the "SpaceRace_Windows" folder.
+  - For Windows: Zip and download the "SpaceRace_Windows" folder at the drive link above.
     - Download the entire folder as a zip file. Extract the "SpaceRace_Windows" folder from the zip file.
     - Once extracted, open the "SpaceRace_Windows" folder, then open "Guayaki - SoftwareDev.exe" 
     - The game should then run. Press space bar to go to the menu while in game to quit out of the application
     - Recall from the presentation that the login button was not implemented
     
-  - For Linux: choose the "SpaceRace_Linux" folder
+  - For Linux: choose the "SpaceRace_Linux" folder at the drive link above.
     - Extract the "SpaceRace_Linux" folder to a directory
     - Open the "SpaceRace_Linux" folder and right click the "SpaceRace_Linux.x86_64" file, and click "run"
     - The game should then run. Press space bar to go to the menu while in game to quit out of the application
+    - Recall from the presentation that the login button was not implemented
+   
+  - For Mac: choose the "Guayaki - SpaceRace_MacOS" folder at the drive link above
+    - Download the "SpaceRace_MacOS.app" 
+    - Run the "SpaceRace_MacOS.app" after downloading and teh game should run
+    - Press space bar to go to the menu while in game to quit out of the application
     - Recall from the presentation that the login button was not implemented
